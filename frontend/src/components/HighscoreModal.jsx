@@ -35,11 +35,10 @@ const HighscoreModal = ({ onClose, highlightPlayer = null, highlightScore = null
     <div className="fixed inset-0 flex items-center justify-center bg-[#1F1F1F] bg-opacity-60 z-50">
       <div className="bg-white text-black p-6 rounded-xl shadow-lg w-96">
         <h1 className="text-2xl font-bold mb-5 text-center">Highscores</h1>
+
         <ul className="mb-4 max-h-80 overflow-y-auto pr-2">
           {highscores.map((entry, index) => {
-            const isHighlighted =
-              entry.name === highlightPlayer && entry.score === highlightScore;
-
+            const isHighlighted = entry.name === highlightPlayer && entry.score === highlightScore;
             const medal = getMedalByRank(index);
 
             return (
@@ -55,12 +54,14 @@ const HighscoreModal = ({ onClose, highlightPlayer = null, highlightScore = null
             );
           })}
         </ul>
+
         <button
           className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded w-full"
           onClick={onClose}
         >
           Close
         </button>
+
       </div>
     </div>
   );

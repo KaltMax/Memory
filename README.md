@@ -1,92 +1,102 @@
-# Memoria
+# Class 4 Example
 
-Memoria is a small browser-based Memory card game. It features a React frontend for interactive gameplay and a Node.js/Express backend API connected to a PostgreSQL database to manage a persistent highscore list. Players can enjoy the challenge and see how their scores rank against others.
-
-## Features
-
-- Classic Memory card matching gameplay.
-- Player name entry at the start of the game.
-- Score calculation based on game performance (e.g., time, turns).
-- Persistent highscore list.
-- Display of player's rank after completing a game.
-
-## Project Architecture
-
-### Frontend
-The frontend handles gameplay logic, UI rendering, score tracking, and user interaction directly in the browser. Users can start a new game and view the highscore list.
-
-Upon starting a game, the player is prompted to enter a name. Once the game is successfully completed, the frontend:
-
-- Sends the final score to the backend,
-- Retrieves the updated highscore list, and
-- Displays the list with the current player's rank and score highlighted.
-
-The frontend is built with modern tooling, such as:
-
-- **React** – UI library for interactive components
-- **Vite** – Fast bundler and dev server
-- **ESLint** – Linting and code quality checks
-- **Jest** – Unit testing framework
-- **Docker** – Containerized deployment setup using Nginx for static file hosting
-
-### Backend
-
-The backend is a lightweight API server that stores and returns the highscore list.
-
-- **Express.js** – Minimalist Node.js server
-- **ESLint** – Static code analysis
-- **Jest** + Supertest – API unit/integration tests
-- **Docker** – Containerized backend environment
-
-The backend provides REST endpoints to:
-
-- Fetch the current highscore list **(GET /api/highscores)**
-- Submit a new score **(POST /api/highscores)**
-
-### Database
-
-– **PostgreSQL** – Stores the highscore data.
-
-## Getting Started
-
-### Prerequisites
-
-*   [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
+## Table of Contents
 
 
-### Running Locally with Docker Compose
+* [Prerequisites](#prerequisites)
+* [Local Development](#local-development)
+* [Production Deployment](#production-deployment)
+* [NPM Scripts](#npm-scripts)
+* [Environment Variables](#environment-variables)
+  * [Adding new Environment Variables](#adding-new-environment-variables)
+* [Add A New Migration](#add-a-new-migration)
 
-1.  **Build and start the containers (first time):**
-  ```bash
-  docker compose up --build -d
-  ```
-2.  **Start the containers (subsequent times):**
-  ```bash
-  docker compose up -d
-  ```
-3.  **Stop the containers:**
-  ```bash
-  docker compose down
-  ```
-Once running, the services will be available at:
-- **Frontend:** [http://localhost:8080/](http://localhost:8080/)
-- **Backend API:** [http://localhost:3000/](http://localhost:3000/)
-- **Database:** Accessible internally by the backend (Port 5432)
+## Prerequisites
 
-## Testing and Linting
+* Docker Engine >=v20.10.24
+* Docker Compose >=v2.17.2
+* Nodejs >=v22.14.0
 
-To ensure code quality and functionality, you can run linting and testing scripts within each service's directory (`frontend/` or `backend/`).
+## Local Development
 
-Navigate to the desired directory (e.g., `cd backend`) and run:
+Prepare your local development environment with a single command:
 
--   **Linting:**
-  ```bash
-  npm run lint
-  ```
-  This command uses ESLint to check the code for style issues and potential errors based on the configured rules.
+```sh
+npm run setup:dev
+```
 
--   **Testing:**
-  ```bash
-  npm run test
-  ```
-  This command executes the test suite using Jest. Test results (including JUnit reports) are typically generated in a `test-results` directory within the respective service folder. Coverage reports might also be generated in a `reports/coverage` directory.
+This command will do the following for you:
+* Removes and reinstalls the node_modules with `npm run cleanup:dev`
+* Stops all previous containers with `npm run setdown:dev`
+* Spin up the database with `docker compose --file local-compose.yaml up --detach`
+* Generate the types from the Prisma Schema for your database with `npm run prisma:generate:dev`
+* Run all database migrations so your database is always on the latest schema with `npm run migrate:dev`
+
+If you want to stop all containers after developing you can run:
+
+```sh
+npm run setdown:dev
+```
+
+Start the server with:
+
+```sh
+npm run start:dev
+```
+
+You can now visit [http://localhost:5000/ping](http://localhost:5000/ping) and start developing.
+
+## Production Deployment
+
+Start the application in production with:
+
+```sh
+docker compose up --build
+```
+
+This command will spin up:
+* the database
+* run run the database migrations
+* start the web app that can communicate with the database on [http://localhost:5000/ping](http://localhost:5000/ping]
+
+## NPM Scripts
+
+* `npm run build`: will transpile the typescript app to javascript executable by nodejs
+* `npm run start`: will start the server found in the `dist` folder
+* `npm run migrate`: will start the migrations
+* `npm run prisma:generate`: will create the types for the database interactions (create, update, delete, etc, ...)
+* `npm run start:dev`: will start the server with nodemon that watches for changes in the code
+* `npm run migrate:dev`: will start the migrations in development mode
+* `npm run prisma:generate:dev`: will create the types for the database interactions in development mode (create, update, delete, etc, ...)
+* `npm run setup:dev`: will prepare and setup your local environment with a single command
+* `npm run setdown:dev`: will stop all running development containers
+* `npm run cleanup:dev`: will remove and reinstall all node_modules
+
+## Environment Variables
+
+We use `dotenv-cli` to pass the environment variables to a command, like:
+
+```sh
+dotenv -e .env -- npx prisma migrate deploy
+```
+
+### Adding new Environment Variables
+
+For local development modify the `.env.local`file and for production the `.env` file, like:
+
+```txt
+# commments
+MY_NEW_VARIABLE="my-new-value"
+```
+
+## Add a new Migration
+
+Modify the `prisma.schema` in `app/database/prisma/prisma.schema`, like:
+
+```prisma
+model SomeNewModel {
+  // add your table fields
+}
+```
+
+and run `npm run migrate`.
