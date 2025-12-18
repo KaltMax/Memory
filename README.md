@@ -1,102 +1,151 @@
-# Class 4 Example
+# Memoria
+
+A full-stack memory application with a React frontend and Node.js backend.
 
 ## Table of Contents
 
-
 * [Prerequisites](#prerequisites)
+* [Installation](#installation)
+* [Environment Configuration](#environment-configuration)
 * [Local Development](#local-development)
 * [Production Deployment](#production-deployment)
 * [NPM Scripts](#npm-scripts)
-* [Environment Variables](#environment-variables)
-  * [Adding new Environment Variables](#adding-new-environment-variables)
-* [Add A New Migration](#add-a-new-migration)
+* [Project Structure](#project-structure)
 
 ## Prerequisites
 
 * Docker Engine >=v20.10.24
 * Docker Compose >=v2.17.2
-* Nodejs >=v22.14.0
+* Node.js >=v22.14.0
+* npm >=v10.0.0
+
+## Installation
+
+Install dependencies for both frontend and backend:
+
+```sh
+npm install
+```
+
+This uses npm workspaces to install dependencies in both the `frontend` and `backend` directories.
+
+## Environment Configuration
+
+The application uses environment files for configuration:
+
+- `.env.example` - Template file with all required environment variables
+- `.env.local` - Local development configuration (create this file)
+- `.env` - Production configuration (create this file)
+
+**Setup for local development:**
+
+1. Copy the example file:
+
+```sh
+cp .env.example .env.local
+```
+
+2. The default values work with Docker. If you need to change them, update `.env.local`:
+
+```
+DB_HOST=db              # Use "db" for Docker, "localhost" if running backend without Docker
+DB_PORT=5432
+DB_USER=user
+DB_PASSWORD=password
+DB_NAME=memoria
+NODE_ENV=development
+```
+
+**Setup for production:**
+
+1. Copy the example file:
+
+```sh
+cp .env.example .env
+```
+
+2. Update `.env` with your production credentials (never commit this file). Keep `DB_HOST=db` when using Docker.
 
 ## Local Development
 
-Prepare your local development environment with a single command:
+For local development, you can run the backend in Docker while developing the frontend locally:
+
+1. Start the backend and database services:
 
 ```sh
-npm run setup:dev
+docker-compose -f docker-compose-dev.yaml up -d
 ```
 
-This command will do the following for you:
-* Removes and reinstalls the node_modules with `npm run cleanup:dev`
-* Stops all previous containers with `npm run setdown:dev`
-* Spin up the database with `docker compose --file local-compose.yaml up --detach`
-* Generate the types from the Prisma Schema for your database with `npm run prisma:generate:dev`
-* Run all database migrations so your database is always on the latest schema with `npm run migrate:dev`
-
-If you want to stop all containers after developing you can run:
+2. Start the frontend development server:
 
 ```sh
-npm run setdown:dev
+npm run dev:frontend
 ```
 
-Start the server with:
+The application will be available at:
+* Frontend: http://localhost:5173 (Vite dev server)
+* Backend API: http://localhost:3000
+* Database: localhost:5432
+
+To stop the backend services:
 
 ```sh
-npm run start:dev
+docker-compose -f docker-compose-dev.yaml down
 ```
-
-You can now visit [http://localhost:5000/ping](http://localhost:5000/ping) and start developing.
 
 ## Production Deployment
 
-Start the application in production with:
+Start the complete application (frontend, backend, and database) in production:
 
 ```sh
-docker compose up --build
+docker-compose up --build -d
 ```
 
-This command will spin up:
-* the database
-* run run the database migrations
-* start the web app that can communicate with the database on [http://localhost:5000/ping](http://localhost:5000/ping]
+This will spin up:
+* PostgreSQL database on port 5432
+* Backend API on port 3000
+* Frontend on port 8080
+
+Access the application at http://localhost:8080
+
+To stop all services:
+
+```sh
+docker-compose down
+```
 
 ## NPM Scripts
 
-* `npm run build`: will transpile the typescript app to javascript executable by nodejs
-* `npm run start`: will start the server found in the `dist` folder
-* `npm run migrate`: will start the migrations
-* `npm run prisma:generate`: will create the types for the database interactions (create, update, delete, etc, ...)
-* `npm run start:dev`: will start the server with nodemon that watches for changes in the code
-* `npm run migrate:dev`: will start the migrations in development mode
-* `npm run prisma:generate:dev`: will create the types for the database interactions in development mode (create, update, delete, etc, ...)
-* `npm run setup:dev`: will prepare and setup your local environment with a single command
-* `npm run setdown:dev`: will stop all running development containers
-* `npm run cleanup:dev`: will remove and reinstall all node_modules
+### Development
+* `npm run dev:frontend` - Start frontend development server
+* `npm run dev:backend` - Start backend development server
 
-## Environment Variables
+### Building
+* `npm run build` - Build frontend for production (backend is plain JS and doesn't need building)
 
-We use `dotenv-cli` to pass the environment variables to a command, like:
+### Testing
+* `npm run test` - Run tests for both frontend and backend
+* `npm run test:frontend` - Run frontend tests only
+* `npm run test:backend` - Run backend tests only
 
-```sh
-dotenv -e .env -- npx prisma migrate deploy
+### Linting
+* `npm run lint` - Lint both frontend and backend
+* `npm run lint:frontend` - Lint frontend only
+* `npm run lint:backend` - Lint backend only
+
+### Cleanup
+* `npm run clean` - Clean build artifacts in both projects
+
+## Project Structure
+
 ```
-
-### Adding new Environment Variables
-
-For local development modify the `.env.local`file and for production the `.env` file, like:
-
-```txt
-# commments
-MY_NEW_VARIABLE="my-new-value"
+.
+├── frontend/                  # React frontend application
+├── backend/                   # Node.js backend application
+├── docker-compose.yaml        # Production docker configuration
+├── docker-compose-dev.yaml    # Development docker configuration (backend only)
+├── package.json               # Root package with workspaces configuration
+├── .env.example               # Environment variables template
+├── .env.local                 # Local environment config (gitignored)
+└── .env                       # Production environment config (gitignored)
 ```
-
-## Add a new Migration
-
-Modify the `prisma.schema` in `app/database/prisma/prisma.schema`, like:
-
-```prisma
-model SomeNewModel {
-  // add your table fields
-}
-```
-
-and run `npm run migrate`.
