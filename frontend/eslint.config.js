@@ -21,6 +21,7 @@ export default [
       globals: {
         document: 'readonly',
         window: 'readonly',
+        localStorage: 'readonly',
         React: 'readonly',
         setInterval: 'readonly',
         clearInterval: 'readonly',

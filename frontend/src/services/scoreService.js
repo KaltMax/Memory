@@ -7,6 +7,6 @@ export async function getHighScoreList() {
   return response.data;
 }
 
-export async function addHighScore(name, score) {
-  await axios.post(API_URL, { name, score });
+export async function addHighScore(score) {
+  await axios.post(API_URL, { score });
 }

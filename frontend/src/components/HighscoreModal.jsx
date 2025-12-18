@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { getHighScoreList } from '../data/scoreService';
+import { getHighScoreList } from '../services/scoreService';
 
 const HighscoreModal = ({ onClose, highlightPlayer = null, highlightScore = null }) => {
   const [highscores, setHighscores] = useState([]);

@@ -1,11 +1,11 @@
 // src/GameBoard.jsx
 import { useEffect, useState } from 'react';
-import { addHighScore } from '../data/scoreService';
+import { addHighScore } from '../services/scoreService';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import cardData from '../data/cards';
 
-const GameBoard = ({ setAttempts, gameStarted, playerName, attempts, seconds, setLastScore, setShowHighscore }) => {
+const GameBoard = ({ setAttempts, gameStarted, attempts, seconds, setLastScore, setShowHighscore }) => {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState(0);
@@ -47,7 +47,7 @@ const GameBoard = ({ setAttempts, gameStarted, playerName, attempts, seconds, se
 
         if (matchedPairs + 1 === newCards.length / 2) {
           const score = Math.max(0, 1000 - (attempts + 1) * 10 - seconds);
-          addHighScore(playerName, score);
+          addHighScore(score);
           setLastScore(score);
           setTimeout(() => {
             setShowHighscore(true);
@@ -78,7 +78,6 @@ const GameBoard = ({ setAttempts, gameStarted, playerName, attempts, seconds, se
 GameBoard.propTypes = {
   setAttempts: PropTypes.func.isRequired,
   gameStarted: PropTypes.bool.isRequired,
-  playerName: PropTypes.string.isRequired,
   attempts: PropTypes.number.isRequired,
   seconds: PropTypes.number.isRequired,
   setLastScore: PropTypes.func.isRequired,

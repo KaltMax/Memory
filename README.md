@@ -24,10 +24,8 @@ A full-stack memory application with a React frontend and Node.js backend.
 Install dependencies for both frontend and backend:
 
 ```sh
-npm install
+npm run setup
 ```
-
-This uses npm workspaces to install dependencies in both the `frontend` and `backend` directories.
 
 ## Environment Configuration
 

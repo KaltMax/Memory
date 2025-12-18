@@ -17,4 +17,10 @@ export default defineConfig([
       },
     },
   },
+  {
+    files: ["**/test/**/*.js", "**/*.test.js", "**/*.spec.js"],
+    env: {
+      jest: true,
+    },
+  },
 ]);

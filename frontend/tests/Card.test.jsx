@@ -18,4 +18,3 @@ describe('Card', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
-

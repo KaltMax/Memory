@@ -24,7 +24,7 @@ export const register = async (req, res) => {
     }
 
     // Validate username format
-    if (!/^[a-zA-Z0-9_]{3,50}$/.test(username)) {
+    if (!/^\w{3,50}$/.test(username)) {
       return res.status(400).json({
         error: 'Username must be 3-50 characters and contain only letters, numbers, and underscores.',
       });
