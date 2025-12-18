@@ -1,5 +1,6 @@
-// App.jsx
 import { useState, useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import GameBoard from './components/GameBoard';
 import InfoPanel from './components/InfoPanel';
 import EnterNameModal from './components/EnterNameModal';
@@ -39,10 +40,10 @@ const App = () => {
     <div className="min-h-screen bg-[#6E7681] p-4 text-white font-sans">
       {showModal && <EnterNameModal onSubmit={handleNameSubmit} />}
       {showHighscore && (
-        <HighscoreModal 
+        <HighscoreModal
           onClose={() => window.location.reload()}
           highlightPlayer={playerName}
-          highlightScore={lastScore} 
+          highlightScore={lastScore}
         />)}
 
       <div className="flex flex-col items-center justify-center h-full">
@@ -55,7 +56,7 @@ const App = () => {
           onHighscoreClick={handleHighscoreButtonClick}
         />
         <GameBoard
-          setAttempts={setAttempts} 
+          setAttempts={setAttempts}
           gameStarted={gameStarted}
           playerName={playerName}
           attempts={attempts}
@@ -64,6 +65,11 @@ const App = () => {
           setShowHighscore={setShowHighscore}
           />
       </div>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={3000}
+        theme={"dark"}
+      />
     </div>
   );
 };

@@ -11,15 +11,23 @@ const getHighscores = async (req, res) => {
   }
 };
 
-// Add highscore to DB
+// Add highscore to DB (protected - requires authentication)
 const addHighscore = async (req, res) => {
-  const { name, score } = req.body;
-  if (typeof name !== 'string' || name.trim() === '' || typeof score !== 'number') {
-    return res.status(400).json({ message: 'Invalid payload' });
+  const { score } = req.body;
+
+  // Validate score
+  if (typeof score !== 'number') {
+    return res.status(400).json({ message: 'Invalid score' });
   }
 
+  // Get user info from authenticated request (set by auth middleware)
+  const { userId, username } = req.user;
+
   try {
-    await pool.query('INSERT INTO highscores (name, score) VALUES ($1, $2)', [name.trim(), score]);
+    await pool.query(
+      'INSERT INTO highscores (name, score, user_id) VALUES ($1, $2, $3)',
+      [username, score, userId]
+    );
     res.status(201).json({ message: 'Score added successfully' });
   } catch (err) {
     console.error('Error adding highscore:', err);

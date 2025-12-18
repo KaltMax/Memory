@@ -65,16 +65,19 @@ describe('Highscore Controller', () => {
   });
 
   describe('addHighscore', () => {
-    it('valid payload → returns 201 Created', async () => {
+    it('valid payload with authenticated user → returns 201 Created', async () => {
       pool.query.mockResolvedValueOnce({});
-      const req = { body: { name: 'Bob', score: 200 } };
+      const req = {
+        body: { score: 200 },
+        user: { userId: 1, username: 'Bob', email: 'bob@example.com' }
+      };
       const res = makeRes();
 
       await addHighscore(req, res);
 
       expect(pool.query).toHaveBeenCalledWith(
-        'INSERT INTO highscores (name, score) VALUES ($1, $2)',
-        ['Bob', 200]
+        'INSERT INTO highscores (name, score, user_id) VALUES ($1, $2, $3)',
+        ['Bob', 200, 1]
       );
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith({
@@ -82,63 +85,33 @@ describe('Highscore Controller', () => {
       });
     });
 
-    it('trims whitespace from name before inserting', async () => {
-      pool.query.mockResolvedValueOnce({});
-      const req = { body: { name: '  Carol  ', score: 150 } };
-      const res = makeRes();
-
-      await addHighscore(req, res);
-
-      expect(pool.query).toHaveBeenCalledWith(
-        'INSERT INTO highscores (name, score) VALUES ($1, $2)',
-        ['Carol', 150]
-      );
-      expect(res.status).toHaveBeenCalledWith(201);
-    });
-
-    it('invalid payload (empty name) → returns 400 Bad Request', async () => {
-      const req = { body: { name: '   ', score: 50 } };
-      const res = makeRes();
-
-      await addHighscore(req, res);
-
-      expect(pool.query).not.toHaveBeenCalled();
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Invalid payload' });
-    });
-
-    it('invalid payload (non-string name) → returns 400 Bad Request', async () => {
-      const req = { body: { name: 123, score: 50 } };
-      const res = makeRes();
-
-      await addHighscore(req, res);
-
-      expect(pool.query).not.toHaveBeenCalled();
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Invalid payload' });
-    });
-
     it('invalid payload (non-number score) → returns 400 Bad Request', async () => {
-      const req = { body: { name: 'Dave', score: 'high' } };
+      const req = {
+        body: { score: 'high' },
+        user: { userId: 1, username: 'Dave', email: 'dave@example.com' }
+      };
       const res = makeRes();
 
       await addHighscore(req, res);
 
       expect(pool.query).not.toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'Invalid payload' });
+      expect(res.json).toHaveBeenCalledWith({ message: 'Invalid score' });
     });
 
     it('DB error during insert → returns 500 Internal Server Error', async () => {
       pool.query.mockRejectedValueOnce(new Error('Insert failed'));
-      const req = { body: { name: 'Eve', score: 75 } };
+      const req = {
+        body: { score: 75 },
+        user: { userId: 1, username: 'Eve', email: 'eve@example.com' }
+      };
       const res = makeRes();
 
       await addHighscore(req, res);
 
       expect(pool.query).toHaveBeenCalledWith(
-        'INSERT INTO highscores (name, score) VALUES ($1, $2)',
-        ['Eve', 75]
+        'INSERT INTO highscores (name, score, user_id) VALUES ($1, $2, $3)',
+        ['Eve', 75, 1]
       );
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
