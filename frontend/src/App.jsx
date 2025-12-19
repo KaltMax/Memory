@@ -36,6 +36,10 @@ const App = () => {
     setGameStarted(true);
   };
 
+  const handleAuthCancel = () => {
+    setShowAuthModal(false);
+  };
+
   const handleHighscoreButtonClick = () => {
     setShowHighscore(true);
   };
@@ -50,7 +54,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#6E7681] p-4 text-white font-sans">
-      {showAuthModal && <AuthModal onClose={handleAuthSuccess} />}
+      {showAuthModal && <AuthModal onClose={handleAuthSuccess} onCancel={handleAuthCancel} />}
       {showHighscore && (
         <HighscoreModal
           onClose={() => window.location.reload()}
@@ -60,7 +64,7 @@ const App = () => {
 
       <div className="flex flex-col items-center justify-center h-full">
         <InfoPanel
-          playerName={user?.username || 'Guest'}
+          playerName={user?.username}
           attempts={attempts}
           seconds={seconds}
           gameStarted={gameStarted}
@@ -72,7 +76,7 @@ const App = () => {
         <GameBoard
           setAttempts={setAttempts}
           gameStarted={gameStarted}
-          playerName={user?.username || 'Guest'}
+          playerName={user?.username}
           attempts={attempts}
           seconds={seconds}
           setLastScore={setLastScore}

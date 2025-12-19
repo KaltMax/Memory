@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
-import { UserCircleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon, ArrowRightStartOnRectangleIcon, PlayIcon, TrophyIcon } from '@heroicons/react/24/outline';
 
 const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, onHighscoreClick, isAuthenticated, onLogout }) => {
   return (
-    <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4 min-h-[150px] justify-center relative">
+    <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4 min-h-[160px] justify-center">
       {isAuthenticated && (
-        <div className="absolute top-4 right-4 flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 bg-gray-800/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-700/50">
-            <UserCircleIcon className="w-4 h-4 text-gray-400" />
-            <span className="text-sm text-gray-300 font-medium">{playerName}</span>
+            <UserCircleIcon className="w-4 h-4" />
+            <span className="text-sm font-medium">{playerName}</span>
           </div>
           <button
-            className="flex items-center gap-1.5 bg-gray-800/50 hover:bg-red-600/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-700/50 hover:border-red-500/50 text-gray-300 hover:text-white text-sm font-medium transition-all duration-200 ease-in-out group"
+            className="flex items-center gap-1.5 bg-gray-800/50 hover:bg-red-600/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-700/50 hover:border-red-500/50 hover:text-white text-sm font-medium transition-all duration-200 ease-in-out group"
             onClick={onLogout}
             title="Logout"
           >
@@ -21,7 +21,7 @@ const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, o
         </div>
       )}
       {gameStarted ? (
-        <div className="flex gap-8 text-center">
+        <div className="flex gap-8 py-2 text-center">
           <div>
             <div className="text-xs uppercase tracking-wider text-gray-200 mb-1">Player</div>
             <div className="text-2xl font-bold">{playerName}</div>
@@ -36,17 +36,19 @@ const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, o
           </div>
         </div>
       ) : (
-        <div>
+        <div className="flex gap-4">
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
             onClick={onStartClick}
           >
+            <PlayIcon className="w-5 h-5" />
             Start Game
           </button>
-          <button 
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-5"
+          <button
+            className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 hover:shadow-lg hover:shadow-gray-600/30 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 hover:scale-105 active:scale-95"
             onClick={onHighscoreClick}
           >
+            <TrophyIcon className="w-5 h-5" />
             Show Highscore
           </button>
         </div>

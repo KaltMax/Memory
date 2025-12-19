@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     setIsAuthenticated(false);
     localStorage.removeItem('token');
+    window.location.reload()
     toast.info('Logged out successfully');
   };
 

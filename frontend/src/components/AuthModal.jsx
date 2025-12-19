@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { AuthContext } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
-const AuthModal = ({ onClose }) => {
+const AuthModal = ({ onClose, onCancel }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -98,13 +98,22 @@ const AuthModal = ({ onClose }) => {
             </div>
           )}
 
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full mb-3"
-            disabled={loading}
-          >
-            {loading ? 'Please wait...' : isLogin ? 'Login' : 'Register'}
-          </button>
+          <div className="flex gap-3 mb-3">
+            <button
+              type="button"
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded w-full transition-colors"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full transition-colors"
+              disabled={loading}
+            >
+              {loading ? 'Please wait...' : isLogin ? 'Login' : 'Register'}
+            </button>
+          </div>
         </form>
 
         <button
@@ -123,6 +132,7 @@ const AuthModal = ({ onClose }) => {
 
 AuthModal.propTypes = {
   onClose: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 export default AuthModal;
