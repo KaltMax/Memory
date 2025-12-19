@@ -5,6 +5,9 @@ export default {
   transform: {
     "^.+\\.(js|jsx|mjs|cjs)$": "babel-jest"
   },
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "<rootDir>/tests/__mocks__/styleMock.js"
+  },
   setupFilesAfterEnv: ["<rootDir>/tests/setupTests.mjs"],
   collectCoverage: true,
   coverageDirectory: "./reports/coverage",

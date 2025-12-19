@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import images from '../utils/imageLoader';
+import './Card.css';
 
 const Card = ({ image, isFlipped, onClick, gameStarted }) => {
   const frontImage = images[`../assets/${image}`];
@@ -9,14 +10,18 @@ const Card = ({ image, isFlipped, onClick, gameStarted }) => {
   const backImage = gameStarted ? backImageActive : backImageInactive;
 
   return (
-    <div
-      role="button"
-      className="w-25 h-25 cursor-pointer bg-cover bg-center rounded"
-      style={{
-        backgroundImage: `url(${isFlipped ? frontImage : backImage})`,
-      }}
-      onClick={onClick}
-    ></div>
+    <div className="card-container" onClick={onClick}>
+      <div className={`card ${isFlipped ? 'flipped' : ''}`}>
+        <div
+          className="card-face card-back"
+          style={{ backgroundImage: `url(${backImage})` }}
+        />
+        <div
+          className="card-face card-front"
+          style={{ backgroundImage: `url(${frontImage})` }}
+        />
+      </div>
+    </div>
   );
 };
 
