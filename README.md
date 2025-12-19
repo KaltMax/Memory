@@ -1,68 +1,39 @@
 # Memoria
 
-A full-stack memory application with a React frontend and Node.js backend.
+A full-stack memory card matching game with user authentication and highscore tracking. Built with React, Node.js, Express.js and PostgreSQL.
 
-## Table of Contents
+## Features
 
-* [Prerequisites](#prerequisites)
-* [Installation](#installation)
-* [Environment Configuration](#environment-configuration)
-* [Local Development](#local-development)
-* [Production Deployment](#production-deployment)
-* [NPM Scripts](#npm-scripts)
-* [Project Structure](#project-structure)
+- User registration and authentication (JWT-based)
+- 4x4 memory card grid game
+- Real-time score calculation based on attempts and time
+- Highscore leaderboard
+- Responsive design with smooth animations
 
-## Prerequisites
+## Quick Start
 
-* Docker Engine >=v20.10.24
-* Docker Compose >=v2.17.2
-* Node.js >=v22.14.0
-* npm >=v10.0.0
+**Prerequisites:** Docker, Docker Compose, Node.js >=22, npm >=10
 
-## Installation
-
-Install dependencies for both frontend and backend:
-
+1. Install dependencies:
 ```sh
 npm run setup
 ```
 
-## Environment Configuration
-
-The application uses environment files for configuration:
-
-- `.env.example` - Template file with all required environment variables
-- `.env.local` - Local development configuration (create this file)
-- `.env` - Production configuration (create this file)
-
-**Setup for local development:**
-
-1. Copy the example file:
-
+2. Configure environment (default values work for development):
 ```sh
 cp .env.example .env.local
 ```
 
-2. The default values work with Docker. If you need to change them, update `.env.local`:
-
-```
-DB_HOST=db              # Use "db" for Docker, "localhost" if running backend without Docker
-DB_PORT=5432
-DB_USER=user
-DB_PASSWORD=password
-DB_NAME=memoria
-NODE_ENV=development
-```
-
-**Setup for production:**
-
-1. Copy the example file:
-
+3. Start development environment:
 ```sh
-cp .env.example .env
+# Start backend and database
+docker-compose -f docker-compose-dev.yaml up -d
+
+# Start frontend dev server
+npm run dev:frontend
 ```
 
-2. Update `.env` with your production credentials (never commit this file). Keep `DB_HOST=db` when using Docker.
+Access at http://localhost:5173 (frontend) and http://localhost:3000 (API)
 
 ## Local Development
 

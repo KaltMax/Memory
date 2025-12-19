@@ -3,7 +3,7 @@ import { UserCircleIcon, ArrowRightStartOnRectangleIcon, PlayIcon, TrophyIcon } 
 
 const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, onHighscoreClick, isAuthenticated, onLogout }) => {
   return (
-    <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4 min-h-[160px] justify-center">
+    <div className="bg-[#1F1F1F] p-4 rounded-xl w-full flex flex-col space-y-4 items-center mb-4 min-h-[160px] justify-center shadow-2xl">
       {isAuthenticated && (
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 bg-gray-800/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-700/50">

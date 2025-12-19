@@ -46,14 +46,14 @@ const App = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#6E7681] flex items-center justify-center text-white">
+      <div className="min-h-screen bg-gradient-to-b from-[#5a6168] to-[#7a8590] flex items-center justify-center text-white">
         <div>Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#6E7681] p-4 text-white font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-[#5a6168] to-[#7a8590] p-4 text-white font-sans">
       {showAuthModal && <AuthModal onClose={handleAuthSuccess} onCancel={handleAuthCancel} />}
       {showHighscore && (
         <HighscoreModal
@@ -63,26 +63,29 @@ const App = () => {
         />)}
 
       <div className="flex flex-col items-center justify-center h-full">
-        <InfoPanel
-          playerName={user?.username}
-          attempts={attempts}
-          seconds={seconds}
-          gameStarted={gameStarted}
-          onStartClick={handleStartButtonClick}
-          onHighscoreClick={handleHighscoreButtonClick}
-          isAuthenticated={isAuthenticated}
-          onLogout={logout}
-        />
-        <GameBoard
-          setAttempts={setAttempts}
-          gameStarted={gameStarted}
-          playerName={user?.username}
-          attempts={attempts}
-          seconds={seconds}
-          setLastScore={setLastScore}
-          setShowHighscore={setShowHighscore}
+        <div className="w-fit">
+          <InfoPanel
+            playerName={user?.username}
+            attempts={attempts}
+            seconds={seconds}
+            gameStarted={gameStarted}
+            onStartClick={handleStartButtonClick}
+            onHighscoreClick={handleHighscoreButtonClick}
+            isAuthenticated={isAuthenticated}
+            onLogout={logout}
           />
+          <GameBoard
+            setAttempts={setAttempts}
+            gameStarted={gameStarted}
+            playerName={user?.username}
+            attempts={attempts}
+            seconds={seconds}
+            setLastScore={setLastScore}
+            setShowHighscore={setShowHighscore}
+            />
+        </div>
       </div>
+
       <ToastContainer
         position="bottom-left"
         autoClose={3000}

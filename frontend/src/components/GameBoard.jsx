@@ -59,7 +59,7 @@ const GameBoard = ({ setAttempts, gameStarted, attempts, seconds, setLastScore, 
 
   return (
     <div className="flex items-center justify-center w-full h-full">
-      <div className="flex items-center justify-center bg-[#1F1F1F] p-4 rounded-xl w-[95vw]">
+      <div className="flex items-center justify-center bg-[#1F1F1F] p-4 rounded-xl w-full shadow-2xl">
         <div className="grid grid-cols-4 gap-4">
           {cards.map((card, index) => (
             <Card
