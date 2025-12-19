@@ -1,19 +1,22 @@
 import PropTypes from 'prop-types';
+import { UserCircleIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
 
 const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, onHighscoreClick, isAuthenticated, onLogout }) => {
   return (
     <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4 min-h-[150px] justify-center relative">
       {isAuthenticated && (
-        <div className="absolute top-4 right-4 flex items-center gap-3">
-          <div className="text-sm text-gray-300">
-            <span className="text-gray-400">Logged in as </span>
-            <span className="font-semibold">{playerName}</span>
+        <div className="absolute top-4 right-4 flex items-center gap-2">
+          <div className="flex items-center gap-2 bg-gray-800/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-700/50">
+            <UserCircleIcon className="w-4 h-4 text-gray-400" />
+            <span className="text-sm text-gray-300 font-medium">{playerName}</span>
           </div>
           <button
-            className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium py-1 px-3 rounded transition-colors"
+            className="flex items-center gap-1.5 bg-gray-800/50 hover:bg-red-600/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-700/50 hover:border-red-500/50 text-gray-300 hover:text-white text-sm font-medium transition-all duration-200 ease-in-out group"
             onClick={onLogout}
+            title="Logout"
           >
-            Logout
+            <ArrowRightStartOnRectangleIcon className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <span>Logout</span>
           </button>
         </div>
       )}
