@@ -1,8 +1,22 @@
 import PropTypes from 'prop-types';
 
-const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, onHighscoreClick }) => {
+const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, onHighscoreClick, isAuthenticated, onLogout }) => {
   return (
-    <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4 min-h-[150px] justify-center">
+    <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4 min-h-[150px] justify-center relative">
+      {isAuthenticated && (
+        <div className="absolute top-4 right-4 flex items-center gap-3">
+          <div className="text-sm text-gray-300">
+            <span className="text-gray-400">Logged in as </span>
+            <span className="font-semibold">{playerName}</span>
+          </div>
+          <button
+            className="bg-red-600 hover:bg-red-700 text-white text-sm font-medium py-1 px-3 rounded transition-colors"
+            onClick={onLogout}
+          >
+            Logout
+          </button>
+        </div>
+      )}
       {gameStarted ? (
         <div className="flex gap-8 text-center">
           <div>
@@ -45,6 +59,8 @@ InfoPanel.propTypes = {
   gameStarted: PropTypes.bool.isRequired,
   onStartClick: PropTypes.func.isRequired,
   onHighscoreClick: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default InfoPanel;

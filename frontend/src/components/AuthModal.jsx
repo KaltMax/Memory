@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const AuthModal = ({ onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -26,6 +27,7 @@ const AuthModal = ({ onClose }) => {
       // Register
       if (password !== confirmPassword) {
         setLoading(false);
+        toast.error('Passwords do not match');
         return;
       }
 

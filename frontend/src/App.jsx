@@ -8,7 +8,7 @@ import HighscoreModal from './components/HighscoreModal';
 import { AuthContext } from './context/AuthContext';
 
 const App = () => {
-  const { user, isAuthenticated, loading } = useContext(AuthContext);
+  const { user, isAuthenticated, loading, logout } = useContext(AuthContext);
   const [attempts, setAttempts] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -66,6 +66,8 @@ const App = () => {
           gameStarted={gameStarted}
           onStartClick={handleStartButtonClick}
           onHighscoreClick={handleHighscoreButtonClick}
+          isAuthenticated={isAuthenticated}
+          onLogout={logout}
         />
         <GameBoard
           setAttempts={setAttempts}
