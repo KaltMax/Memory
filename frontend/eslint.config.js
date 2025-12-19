@@ -73,4 +73,14 @@ export default [
       },
     },
   },
+  {
+    files: ['tests/__mocks__/**/*.js'],
+    languageOptions: {
+      globals: {
+        module: 'readonly',
+        exports: 'readonly',
+        require: 'readonly',
+      },
+    },
+  },
 ];
