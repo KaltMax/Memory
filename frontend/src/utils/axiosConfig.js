@@ -25,8 +25,6 @@ axios.interceptors.response.use(
     if (error.response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('token');
-      // Optionally reload or redirect - for now just clear token
-      // window.location.reload();
     }
 
     return Promise.reject(error);
