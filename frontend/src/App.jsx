@@ -24,10 +24,10 @@ const App = () => {
   }, [gameStarted]);
 
   const handleStartButtonClick = () => {
-    if (!isAuthenticated) {
-      setShowAuthModal(true);
-    } else {
+    if (isAuthenticated) {
       setGameStarted(true);
+    } else {
+      setShowAuthModal(true);
     }
   };
 

@@ -2,6 +2,19 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { getHighScoreList } from '../services/scoreService';
 
+function getMedalByRank(index) {
+  switch (index) {
+    case 0:
+      return '🥇';
+    case 1:
+      return '🥈';
+    case 2:
+      return '🥉';
+    default:
+      return `${index + 1}.`;
+  }
+}
+
 const HighscoreModal = ({ onClose, highlightPlayer = null, highlightScore = null }) => {
   const [highscores, setHighscores] = useState([]);
 
@@ -17,19 +30,6 @@ const HighscoreModal = ({ onClose, highlightPlayer = null, highlightScore = null
 
     fetchHighscores();
   }, []);
-
-  function getMedalByRank(index) {
-    switch (index) {
-      case 0:
-        return '🥇';
-      case 1:
-        return '🥈';
-      case 2:
-        return '🥉';
-      default:
-        return `${index + 1}.`;
-    }
-  }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-[#1F1F1F] bg-opacity-60 z-50">

@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import images from '../utils/imageLoader';
 
-const Card = ({ image, isFlipped, onClick }) => {
+const Card = ({ image, isFlipped, onClick, gameStarted }) => {
   const frontImage = images[`../assets/${image}`];
-  const backImage = images['../assets/memoryBg.png'];
+  const backImageActive = images['../assets/memoryBg.png'];
+  const backImageInactive = images['../assets/memoryBgI.png'];
+
+  const backImage = gameStarted ? backImageActive : backImageInactive;
 
   return (
     <div
@@ -21,6 +24,7 @@ Card.propTypes = {
   image: PropTypes.string.isRequired,
   isFlipped: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  gameStarted: PropTypes.bool.isRequired,
 };
 
 export default Card;

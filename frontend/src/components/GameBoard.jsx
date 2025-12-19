@@ -67,6 +67,7 @@ const GameBoard = ({ setAttempts, gameStarted, attempts, seconds, setLastScore, 
               image={card.name}
               isFlipped={gameStarted && (card.isFlipped || card.isMatched)}
               onClick={() => handleFlip(index)}
+              gameStarted={gameStarted}
             />
           ))}
         </div>

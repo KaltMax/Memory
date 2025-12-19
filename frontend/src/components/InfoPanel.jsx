@@ -2,13 +2,22 @@ import PropTypes from 'prop-types';
 
 const InfoPanel = ({ playerName, attempts, seconds, gameStarted, onStartClick, onHighscoreClick }) => {
   return (
-    <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4">
+    <div className="bg-[#1F1F1F] p-4 rounded-xl w-[95vw] flex flex-col space-y-4 items-center mb-4 min-h-[150px] justify-center">
       {gameStarted ? (
-        <>
-          <div className="text-lg font-semibold">Player: {playerName}</div>
-          <div className="text-lg font-semibold">Attempts: {attempts}</div>
-          <div className="text-lg font-semibold">Time: {seconds}s</div>
-        </>
+        <div className="flex gap-8 text-center">
+          <div>
+            <div className="text-xs uppercase tracking-wider text-gray-200 mb-1">Player</div>
+            <div className="text-2xl font-bold">{playerName}</div>
+          </div>
+          <div className="border-l border-gray-600 pl-8">
+            <div className="text-xs uppercase tracking-wider text-gray-200 mb-1">Attempts</div>
+            <div className="text-2xl font-bold">{attempts}</div>
+          </div>
+          <div className="border-l border-gray-600 pl-8">
+            <div className="text-xs uppercase tracking-wider text-gray-200 mb-1">Time</div>
+            <div className="text-2xl font-bold">{seconds}s</div>
+          </div>
+        </div>
       ) : (
         <div>
           <button
