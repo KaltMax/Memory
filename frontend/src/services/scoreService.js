@@ -1,12 +1,11 @@
 import axios from 'axios';
-
-const API_URL = '/api/highscores';
+import { getApiUrl, API_ENDPOINTS } from '../config/api';
 
 export async function getHighScoreList() {
-  const response = await axios.get(API_URL);
+  const response = await axios.get(getApiUrl(API_ENDPOINTS.HIGHSCORES));
   return response.data;
 }
 
 export async function addHighScore(score) {
-  await axios.post(API_URL, { score });
+  await axios.post(getApiUrl(API_ENDPOINTS.HIGHSCORES), { score });
 }
