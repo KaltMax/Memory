@@ -1,0 +1,6 @@
+# Local Development Secrets for Cloudflare Workers
+# Copy this file to .dev.vars and update the values
+
+# JWT Secret - Use a strong, random string
+# Generate one with: node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+JWT_SECRET=your-secret-key-change-this-to-a-random-string
