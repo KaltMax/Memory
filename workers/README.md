@@ -122,25 +122,6 @@ Enter a strong, random secret when prompted. You can generate one with:
 node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 ```
 
-### 2. Update CORS Configuration (Optional)
-
-For production, update `wrangler.toml` to restrict CORS to your frontend domain:
-
-```toml
-[env.production]
-CORS_ORIGIN = "https://your-frontend-domain.com"
-```
-
-Then update `src/index.js` CORS middleware to use the environment variable:
-
-```javascript
-app.use('*', cors({
-  origin: (c) => c.env.CORS_ORIGIN || '*',
-  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowHeaders: ['Content-Type', 'Authorization'],
-}));
-```
-
 ### 3. Run Production Migration
 
 ```bash

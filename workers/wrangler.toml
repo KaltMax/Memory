@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "memoria-db"
-database_id = "<PLACEHOLDER_WILL_BE_GENERATED_BY_WRANGLER_D1_CREATE>"
+database_id = "5d8e579c-e8d1-4728-9874-7276c6b2abb5"
 
 [vars]
 JWT_EXPIRATION = "7d"
