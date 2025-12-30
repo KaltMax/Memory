@@ -212,11 +212,12 @@ Temporary Items
 test-results
 *.trx
 
-##### # # # #
-#### # # # #
-### CLOUDFLARE WORKERS
-## # # # #
-# # # # #
+# Personal files
+DEPLOYMENT_SUMMARY.md
+PRESENTATION_GUIDE.md
+SERVL_Seminar_Paper.md
+
+# CLOUDFLARE WORKERS
 
 # Wrangler local state and cache
 .wrangler/
@@ -230,4 +231,3 @@ wrangler-state/
 
 # Wrangler output
 worker/
-

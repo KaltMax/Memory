@@ -10,8 +10,8 @@
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --reporters=default --reporters=jest-junit",
     "lint": "eslint src/**/*.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Maximilian Kaltenreiner",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "body-parser": "^1.20.2",
