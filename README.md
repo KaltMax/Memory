@@ -1,6 +1,15 @@
 # Memoria
 
-A full-stack memory card matching game with user authentication and highscore tracking. Built with React, Node.js, Express.js and PostgreSQL.
+A full-stack memory card matching game with user authentication and highscore tracking.
+
+## Backend Implementations
+
+This project has **two backend implementations**:
+
+1. **Traditional Stack** (main branch) - Node.js + Express.js + PostgreSQL
+2. **Cloudflare Workers** (cloudflare-workers branch) - Edge computing with Hono + D1
+
+**For Cloudflare Workers setup**, see [`workers/README.md`](./workers/README.md)
 
 ## Features
 
@@ -110,7 +119,8 @@ docker-compose down
 ```
 .
 ├── frontend/                  # React frontend application
-├── backend/                   # Node.js backend application
+├── backend/                   # Node.js + Express.js backend (traditional)
+├── workers/                   # Cloudflare Workers backend (serverless)
 ├── docker-compose.yaml        # Production docker configuration
 ├── docker-compose-dev.yaml    # Development docker configuration (backend only)
 ├── package.json               # Root package with workspaces configuration

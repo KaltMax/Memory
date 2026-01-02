@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "memoria-db"
-database_id = "31ae6e64-f89a-491f-b71f-92be0d54bae9"
+database_id = "copy-d1--id-here"
 
 [vars]
 JWT_EXPIRATION = "7d"
