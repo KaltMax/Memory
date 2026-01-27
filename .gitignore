@@ -232,3 +232,6 @@ wrangler-state/
 
 # Wrangler output
 worker/
+
+# Development environment variables
+.dev.vars
