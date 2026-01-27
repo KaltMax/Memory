@@ -1,0 +1,17 @@
+name = "memoria-api"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "memoria-db"
+database_id = "copy-d1--id-here"
+
+[vars]
+JWT_EXPIRATION = "7d"
+CORS_ORIGIN = "*"
+
+[observability]
+enabled = true
+head_sampling_rate = 1

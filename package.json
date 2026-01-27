@@ -15,5 +15,7 @@
     "lint:backend": "npm run lint --prefix backend",
     "clean": "npm run clean --prefix frontend && npm run clean --prefix backend"
   },
-  "description": "Memory project with frontend and backend"
+  "description": "Memory project with frontend and backend",
+  "author": "Maximilian Kaltenreiner",
+  "license": "MIT"
 }

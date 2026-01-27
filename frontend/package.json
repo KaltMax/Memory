@@ -10,6 +10,8 @@
     "lint": "eslint src tests --ext .js,.jsx",
     "test": "jest --reporters=default --reporters=jest-junit"
   },
+  "author": "Maximilian Kaltenreiner",
+  "license": "MIT",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.1.13",

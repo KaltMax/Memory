@@ -79,6 +79,7 @@ web_modules/
 .env
 .env.test
 .env.local
+.dev.vars
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -211,3 +212,23 @@ Temporary Items
 test-results
 *.trx
 
+# Personal files
+DEPLOYMENT_SUMMARY.md
+PRESENTATION_GUIDE.md
+SERVL_Seminar_Paper.md
+Seminar_Paper/
+
+# CLOUDFLARE WORKERS
+
+# Wrangler local state and cache
+.wrangler/
+.wrangler
+wrangler-state/
+
+# Local D1 database files
+*.db
+*.db-shm
+*.db-wal
+
+# Wrangler output
+worker/

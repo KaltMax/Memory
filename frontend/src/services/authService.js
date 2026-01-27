@@ -1,9 +1,8 @@
 import axios from 'axios';
-
-const API_URL = '/api/auth';
+import { getApiUrl, API_ENDPOINTS } from '../config/api';
 
 export async function register(username, email, password) {
-  const response = await axios.post(`${API_URL}/register`, {
+  const response = await axios.post(getApiUrl(API_ENDPOINTS.AUTH_REGISTER), {
     username,
     email,
     password,
@@ -12,7 +11,7 @@ export async function register(username, email, password) {
 }
 
 export async function login(email, password) {
-  const response = await axios.post(`${API_URL}/login`, {
+  const response = await axios.post(getApiUrl(API_ENDPOINTS.AUTH_LOGIN), {
     email,
     password,
   });
@@ -20,7 +19,7 @@ export async function login(email, password) {
 }
 
 export async function verifyToken(token) {
-  const response = await axios.get(`${API_URL}/verify`, {
+  const response = await axios.get(getApiUrl(API_ENDPOINTS.AUTH_VERIFY), {
     headers: {
       Authorization: `Bearer ${token}`,
     },
